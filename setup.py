@@ -15,8 +15,11 @@
 
 import sys
 
-import ez_setup
-ez_setup.use_setuptools()
+try:
+    import setuptools
+except ImportError:
+    import ez_setup
+    ez_setup.use_setuptools()
 
 from setuptools import setup, find_packages
 from setuptools.command import test
@@ -50,7 +53,7 @@ class GoogleTestWrapper(test.test, object):
 
 setup(
     name="google-apputils",
-    version="0.4.1",
+    version="0.4.2dev",
     packages=find_packages(exclude=["tests"]),
     namespace_packages=["google"],
     entry_points={
