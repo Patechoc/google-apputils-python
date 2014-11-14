@@ -33,8 +33,7 @@ REQUIRE = [
 TEST_REQUIRE = ["mox>=0.5"]
 
 if sys.version_info[:2] < (2, 7):
-  # unittest2 is a backport of Python 2.7's unittest.
-  TEST_REQUIRE.append("unittest2>=0.5.1")
+  raise Exception('requires Python >= 2.7')
 
 
 # Mild hackery to get around the fact that we want to include a
@@ -51,9 +50,18 @@ class GoogleTestWrapper(test.test, object):
     dist.test_dir = GoogleTestWrapper.test_dir
     return dist
 
+with open('README.rst') as fileobj:
+    README = fileobj.read()
+
 setup(
     name="google-apputils",
     version="0.4.2dev",
+    long_description=README,
+      classifiers=[
+        "Intended Audience :: Developers",
+        "Programming Language :: Python :: 2",
+        "Programming Language :: Python :: 2.7",
+        ],
     packages=find_packages(exclude=["tests"]),
     namespace_packages=["google"],
     entry_points={
